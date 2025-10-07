@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Registrasi</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<style>
+  body {
+  font-family: Arial, sans-serif; /* font teks */
+  margin: 30px;                   /* jarak ke tepi layar */
+  background: #f8f9fa;            /* warna background abu-abu terang */
+}
+  label {
+    display: inline-block;
+    width: 150px;
+    margin-bottom: 10px;
+  }
+  form {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+  }
+  input, select {
+    padding: 5px;
+    margin-bottom: 10px;
+  }
+  combo-box {
+    width: 200px;
+  }
+  button {
+    padding: 10px 15px;
+    background-color: #4f3cff;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #ff00d4;
+  }
+</style>
+
+<body>
+  <h2>Form Kasir</h2>
+  
+  <form id="formKasir">
+
+    <label for="nama">Nama Customer:</label>
+    <input type="text" id="nama" name="nama" required><br><br>
+
+    <label for="diskon">Status Customer:</label><br>
+    <input type="radio" name="diskon" value="NonMember"> Non-Member
+    <input type="radio" name="diskon" value="Member"> Member (Diskon 5%)
+    <br><br>
+
+    <label for="barang">Pilih Barang:</label>
+    <select id="barang" name="barang">
+      <option value="Pensil">Pensil</option>
+      <option value="Buku">Buku</option>
+      <option value="Ballpoint">Ballpoint</option>
+    </select>
+    <br><br>
+    
+    <label for="harga">Harga Satuan:</label>
+    <input type="number" id="harga" name="harga" min="0" required>
+    <br><br>
+
+    <label for="jumlah">Jumlah:</label>
+    <input type="number" id="jumlah" name="jumlah" min="1" required>
+    <br><br>
+   
+    <label for="subtotal">Sub Total:</label>
+    <input type="number" id="subtotal" name="subtotal" min="0" required readonly>
+    <br><br>
+
+    <label for="totalDiskon">Diskon:</label>
+    <input type="number" id="totalDiskon" name="totalDiskon" min="0" required readonly>
+    <br><br>
+
+    <label for="totalBayar">Total Bayar:</label>
+    <input type="number" id="totalBayar" name="totalBayar" min="0" required readonly>
+    <br><br>
+
+    <button type="submit">Simpan Transaksi</button>
+
+    <script>    
+        document.getElementById('formKasir').addEventListener('input', function() {
+            const harga = parseFloat(document.getElementById('harga').value) || 0;
+            const jumlah = parseInt(document.getElementById('jumlah').value) || 0;
+            
+            const subtotal = harga * jumlah;
+            document.getElementById('subtotal').value = subtotal.toFixed(2);
+            
+            const isMember = document.querySelector('input[name="diskon"]:checked')?.value === 'Member';
+            const diskon = isMember ? subtotal * 0.05 : 0;
+            document.getElementById('totalDiskon').value = diskon.toFixed(2);
+            
+            const totalBayar = subtotal - diskon;
+            document.getElementById('totalBayar').value = totalBayar.toFixed(2);
+        });
+    </script>
+
+    <!-- <script>
+      document.getElementById('formKasir').addEventListener('submit', function(event) {
+          const nama = document.getElementById('nama').value;
+          const harga = document.getElementById('harga').value;
+          const jumlah = document.getElementById('jumlah').value;
+
+          if (!nama || !harga || !jumlah || !document.querySelector('input[name="diskon"]:checked')) {
+              alert('Semua inputan wajib diisi!');
+              event.preventDefault(); // Mencegah form submit
+          }
+      });   
+    </script> -->
+   
+  </form>
+
+</body>
+</html>
