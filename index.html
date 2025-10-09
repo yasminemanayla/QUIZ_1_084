@@ -53,7 +53,7 @@
     <input type="text" id="nama" name="nama" required><br><br>
 
     <label for="diskon">Status Customer:</label><br>
-    <input type="radio" name="diskon" value="NonMember"> Non-Member
+    <input type="radio" name="diskon" value="Non-Member"> Non-Member
     <input type="radio" name="diskon" value="Member"> Member (Diskon 5%)
     <br><br>
 
@@ -96,28 +96,13 @@
             document.getElementById('subtotal').value = subtotal.toFixed(2);
             
             const isMember = document.querySelector('input[name="diskon"]:checked')?.value === 'Member';
-            const diskon = isMember ? subtotal * 0.05 : 0;
+            const diskon = isMember ? subtotal * 0.05 : 0; //jika true akan menjalankan kode kiri, jika false akan menjalankan kode kanan
             document.getElementById('totalDiskon').value = diskon.toFixed(2);
             
             const totalBayar = subtotal - diskon;
             document.getElementById('totalBayar').value = totalBayar.toFixed(2);
         });
     </script>
-
-    <!-- <script>
-      document.getElementById('formKasir').addEventListener('submit', function(event) {
-          const nama = document.getElementById('nama').value;
-          const harga = document.getElementById('harga').value;
-          const jumlah = document.getElementById('jumlah').value;
-
-          if (!nama || !harga || !jumlah || !document.querySelector('input[name="diskon"]:checked')) {
-              alert('Semua inputan wajib diisi!');
-              event.preventDefault(); // Mencegah form submit
-          }
-      });   
-    </script> -->
-   
   </form>
-
 </body>
 </html>
